@@ -8,7 +8,7 @@ const MESSAGES = [
   '¡Hola Mundo!',
   'Bonjour le monde !',
   '你好，世界',
-  
+
 ]
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [isVideoReady, setIsVideoReady] = useState(false)
-  const email = 'palashvishwas@gmail.com'
+  const email = 'palashvishwas01@gmail.com'
 
   useEffect(() => {
     const currentMessage = MESSAGES[messageIndex]
