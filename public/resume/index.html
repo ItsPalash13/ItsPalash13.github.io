@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume</title>
+    <script>
+      fetch('/links.json')
+        .then((response) => response.json())
+        .then((links) => {
+          window.location.replace(links.resume)
+        })
+        .catch(() => {
+          document.body.textContent = 'Unable to redirect to resume.'
+        })
+    </script>
+  </head>
+  <body>
+    Redirecting to resume...
+  </body>
+</html>

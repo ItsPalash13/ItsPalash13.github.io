@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Player from './Player'
 
+type SiteLinks = {
+  resume: string
+}
+
 const MESSAGES = [
   'Hello, World!',
   'नमस्ते दुनिया!',
@@ -17,7 +21,23 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [isVideoReady, setIsVideoReady] = useState(false)
+  const [resumeUrl, setResumeUrl] = useState('')
   const email = 'palashvishwas01@gmail.com'
+
+  useEffect(() => {
+    const loadLinks = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.BASE_URL}links.json`)
+        if (!response.ok) return
+        const links = (await response.json()) as SiteLinks
+        setResumeUrl(links.resume)
+      } catch {
+        // Keep resume icon hidden if links fail to load.
+      }
+    }
+
+    void loadLinks()
+  }, [])
 
   useEffect(() => {
     const currentMessage = MESSAGES[messageIndex]
@@ -85,6 +105,29 @@ function App() {
           |
         </span>
       </h1>
+      {resumeUrl ? (
+        <div className="bottom-left-resume">
+          <a
+            href={resumeUrl}
+            className="resume-button"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open resume"
+          >
+            <svg
+              className="resume-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 2.5L18.5 10H13V4.5ZM8 13h8v2H8v-2Zm0 4h5v2H8v-2Z"
+              />
+            </svg>
+          </a>
+        </div>
+      ) : null}
       <div className="bottom-right-email">
         <button
           type="button"
